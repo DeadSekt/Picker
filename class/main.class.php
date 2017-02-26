@@ -33,7 +33,7 @@
 	}
 	 
 	function takeService($id, $dc, $cid, $cycle){
-		if(self::isAvailable($dc)=="available"){
+		if(self::isAvailable($dc)=="100"){
 			$query = $db->query_insert("INSERT INTO fx_services_list (customer,type,datacenter,cycle) values ($cid, '$id', '$dc', '$cycle')", false);
 			if($query){
 				return "201";
@@ -45,6 +45,15 @@
 		}
 	}
 	 
+	function verifyPayment($cid, $gateway, $transactionId){
+		if($gateway::check($transactionId) == "201"){
+			return "201";
+			break;
+		}else{
+			return "303";
+			break;
+		}
+	}
  }
 
 ?>
